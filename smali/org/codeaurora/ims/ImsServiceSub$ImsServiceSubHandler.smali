@@ -208,17 +208,17 @@
 
     .line 1496
     .local v6, "selfIdentityUris":[Landroid/net/Uri;
-    if-eqz p1, :cond_2
+    if-eqz p1, :cond_3
 
     iget-object v7, p1, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
-    if-nez v7, :cond_2
+    if-nez v7, :cond_3
 
     iget-object v7, p1, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
     instance-of v7, v7, Lorg/codeaurora/ims/ImsRegistrationInfo;
 
-    if-eqz v7, :cond_2
+    if-eqz v7, :cond_3
 
     .line 1497
     iget-object v7, p1, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
@@ -254,9 +254,16 @@
     .line 1504
     const/4 v8, 0x2
 
-    if-eq v3, v8, :cond_0
+    if-eq v3, v8, :cond_1
+
+    const/4 v8, 0x0
+
+    if-ne v4, v8, :cond_0
+
+    const/16 v4, 0xe
 
     .line 1505
+    :cond_0
     iget-object v8, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     iget-object v8, v8, Lorg/codeaurora/ims/ImsServiceSub;->mCi:Lorg/codeaurora/ims/ImsSenderRxr;
@@ -276,8 +283,8 @@
     invoke-virtual {v8, v9}, Lorg/codeaurora/ims/ImsSenderRxr;->queryServiceStatus(Landroid/os/Message;)V
 
     .line 1507
-    :cond_0
-    if-eqz v2, :cond_1
+    :cond_1
+    if-eqz v2, :cond_2
 
     .line 1508
     nop
@@ -289,11 +296,11 @@
 
     .line 1511
     .end local v7    # "registration":Lorg/codeaurora/ims/ImsRegistrationInfo;
-    :cond_1
+    :cond_2
     goto :goto_0
 
     .line 1512
-    :cond_2
+    :cond_3
     iget-object v7, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     const-string v8, "handleImsStateChanged error"
@@ -316,7 +323,7 @@
     .local v8, "wfcRegState":I
     const/16 v9, 0xe
 
-    if-ne v4, v9, :cond_3
+    if-ne v4, v9, :cond_4
 
     .line 1521
     const/4 v8, 0x2
@@ -329,7 +336,7 @@
     invoke-static {v9, v10}, Lorg/codeaurora/ims/ImsServiceSub;->access$800(Lorg/codeaurora/ims/ImsServiceSub;Ljava/lang/String;)V
 
     .line 1524
-    :cond_3
+    :cond_4
     iget-object v9, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     invoke-static {v9, v7, v8}, Lorg/codeaurora/ims/ImsServiceSub;->access$1000(Lorg/codeaurora/ims/ImsServiceSub;Landroid/telephony/ims/ImsReasonInfo;I)V
@@ -338,13 +345,13 @@
     invoke-direct {p0, v3, v7, v4}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->notifyRegChange(ILandroid/telephony/ims/ImsReasonInfo;I)V
 
     .line 1528
-    if-eqz v6, :cond_4
+    if-eqz v6, :cond_5
 
     invoke-direct {p0, v6}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->selfIdentityUrisHaveChanged([Landroid/net/Uri;)Z
 
     move-result v9
 
-    if-eqz v9, :cond_4
+    if-eqz v9, :cond_5
 
     .line 1529
     invoke-direct {p0, v6}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->updateSelfIdentityUriCache([Landroid/net/Uri;)V
@@ -353,7 +360,7 @@
     invoke-direct {p0, v6}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->notifyRegAssociatedUriChange([Landroid/net/Uri;)V
 
     .line 1532
-    :cond_4
+    :cond_5
     return-void
 .end method
 
@@ -1161,7 +1168,7 @@
     .restart local v0    # "ar":Landroid/os/AsyncResult;
     iget-object v1, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
-    if-eqz v1, :cond_7
+    if-eqz v1, :cond_1
 
     .line 1615
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
@@ -1169,6 +1176,19 @@
     const-string v2, "Request turn on/off IMS failed"
 
     invoke-static {v1, v2}, Lorg/codeaurora/ims/ImsServiceSub;->access$800(Lorg/codeaurora/ims/ImsServiceSub;Ljava/lang/String;)V
+
+    :cond_1
+    iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
+
+    iget-object v1, v1, Lorg/codeaurora/ims/ImsServiceSub;->mCi:Lorg/codeaurora/ims/ImsSenderRxr;
+
+    const/4 v2, 0x3
+
+    invoke-virtual {p0, v2}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->obtainMessage(I)Landroid/os/Message;
+
+    move-result-object v2
+
+    invoke-virtual {v1, v2}, Lorg/codeaurora/ims/ImsSenderRxr;->getImsRegistrationState(Landroid/os/Message;)V
 
     goto/16 :goto_0
 
@@ -1226,11 +1246,11 @@
     .local v0, "arResultSrv":Landroid/os/AsyncResult;
     iget-object v1, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
-    if-nez v1, :cond_1
+    if-nez v1, :cond_2
 
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
-    if-eqz v1, :cond_1
+    if-eqz v1, :cond_2
 
     .line 1634
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
@@ -1248,7 +1268,7 @@
     goto/16 :goto_0
 
     .line 1638
-    :cond_1
+    :cond_2
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     const-string v2, "IMS Service Status Update failed!"
@@ -1281,11 +1301,11 @@
     .local v0, "arResult":Landroid/os/AsyncResult;
     iget-object v1, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
 
-    if-nez v1, :cond_2
+    if-nez v1, :cond_3
 
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
-    if-eqz v1, :cond_2
+    if-eqz v1, :cond_3
 
     .line 1622
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
@@ -1303,7 +1323,7 @@
     goto/16 :goto_0
 
     .line 1626
-    :cond_2
+    :cond_3
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     const-string v2, "IMS Service Status Update failed!"
@@ -1343,7 +1363,7 @@
     .restart local v0    # "ar":Landroid/os/AsyncResult;
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
-    if-nez v1, :cond_3
+    if-nez v1, :cond_4
 
     .line 1603
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
@@ -1361,7 +1381,7 @@
     goto :goto_0
 
     .line 1605
-    :cond_3
+    :cond_4
     invoke-direct {p0, v0}, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->handleImsStateChanged(Landroid/os/AsyncResult;)V
 
     .line 1607
@@ -1378,7 +1398,7 @@
     .restart local v0    # "ar":Landroid/os/AsyncResult;
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
-    if-eqz v1, :cond_4
+    if-eqz v1, :cond_5
 
     .line 1648
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
@@ -1388,7 +1408,7 @@
     goto :goto_0
 
     .line 1649
-    :cond_4
+    :cond_5
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     iget-object v2, v0, Landroid/os/AsyncResult;->exception:Ljava/lang/Throwable;
@@ -1397,7 +1417,7 @@
 
     move-result v1
 
-    if-eqz v1, :cond_6
+    if-eqz v1, :cond_7
 
     .line 1650
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
@@ -1423,7 +1443,7 @@
     .line 1653
     iget-object v1, v0, Landroid/os/AsyncResult;->result:Ljava/lang/Object;
 
-    if-eqz v1, :cond_5
+    if-eqz v1, :cond_6
 
     .line 1654
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
@@ -1433,7 +1453,7 @@
     goto :goto_0
 
     .line 1656
-    :cond_5
+    :cond_6
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     const-string v2, "EVENT_CALL_STATE_CHANGE with no calls ignored!"
@@ -1443,7 +1463,7 @@
     goto :goto_0
 
     .line 1659
-    :cond_6
+    :cond_7
     iget-object v1, p0, Lorg/codeaurora/ims/ImsServiceSub$ImsServiceSubHandler;->this$0:Lorg/codeaurora/ims/ImsServiceSub;
 
     new-instance v2, Ljava/lang/StringBuilder;
@@ -1469,7 +1489,6 @@
 
     .line 1784
     .end local v0    # "ar":Landroid/os/AsyncResult;
-    :cond_7
     :goto_0
     return-void
 
